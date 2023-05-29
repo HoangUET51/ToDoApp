@@ -2,17 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/common/AppColor.dart';
 import 'package:to_do_list/common/AppStyle.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:to_do_list/pages/ToDoItem.dart';
 import 'package:to_do_list/router/app_router.gr.gr.dart';
 
 @RoutePage()
 class TodoList extends StatefulWidget {
-  const TodoList({Key? key}) : super(key: key);
+  TodoList({Key? key}) : super(key: key);
 
   @override
   State<TodoList> createState() => _TodoListState();
 }
 
 class _TodoListState extends State<TodoList> {
+  final todosList = ToDo.todoList();
+
+  void addTodoList(ToDo todo) {
+    setState(() {
+      todosList.add(todo);
+    });
+  }
+
+  void deleteItem(int id) {
+    setState(() {
+      todosList.removeWhere((item) => item.id == id);
+    });
+  }
+
+  void handleOnchange(ToDo todo, ToDo newTodo) {
+    setState(() {
+      todo.priority = newTodo.priority;
+      todo.title = newTodo.title;
+      todo.description = newTodo.description;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,21 +61,21 @@ class _TodoListState extends State<TodoList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "High",
+                              todosList[index].priority.toString(),
                               style: TextStyle(
                                   color: AppColor.subItem,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "List item",
+                              todosList[index].title.toString(),
                               style: TextStyle(
                                   color: AppColor.titleItem,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500),
                             ),
                             Text(
-                              "Supporting line text lorem ipsum dolor sit amet, consectetur.",
+                              todosList[index].description.toString(),
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                   color: AppColor.subItem,
@@ -64,37 +87,42 @@ class _TodoListState extends State<TodoList> {
                     Expanded(
                         flex: 3,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            TextButton(
-                              onPressed: () {
-                                context.router.push(const EditTodo());
+                            IconButton(
+                              onPressed: () async {
+                                var newTodo = await context.router
+                                    .push(EditTodo(todo: todosList[index]));
+                                handleOnchange(
+                                    todosList[index], newTodo as ToDo);
                               },
-                              child: Icon(
+                              icon: Icon(
                                 Icons.create_outlined,
                                 color: AppColor.subItem,
                                 size: 20,
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
-                              height: 20,
+                            IconButton(
+                              onPressed: () {
+                                deleteItem(todosList[index].id as int);
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: AppColor.subItem,
+                                size: 20,
+                              ),
                             ),
-                            Icon(
-                              Icons.delete,
-                              color: AppColor.subItem,
-                              size: 20,
-                            )
                           ],
                         ))
                   ],
                 ));
           },
-          itemCount: 10),
+          itemCount: todosList.length),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.backgroundActionButton,
-        onPressed: () {
-          context.router.push(const AddTodo());
+        onPressed: () async {
+          final result = await context.router.push(const AddTodo());
+          addTodoList(result as ToDo);
         },
         child: Icon(
           Icons.add,

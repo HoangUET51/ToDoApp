@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:to_do_list/pages/ToDoItem.dart';
 
 import '../common/AppColor.dart';
 import '../common/AppStyle.dart';
@@ -7,13 +8,27 @@ import '../common/Selected.dart';
 
 @RoutePage()
 class EditTodo extends StatefulWidget {
-  const EditTodo({Key? key}) : super(key: key);
+  const EditTodo({Key? key, required this.todo}) : super(key: key);
+
+  final ToDo todo;
 
   @override
   State<EditTodo> createState() => _EditTodoState();
 }
 
 class _EditTodoState extends State<EditTodo> {
+  final priorityController = TextEditingController();
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    priorityController.text = widget.todo.priority as String;
+    titleController.text = widget.todo.title as String;
+    descriptionController.text = widget.todo.description as String;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<DropdownMenuEntry<Selected>> dropDowns =
@@ -38,7 +53,15 @@ class _EditTodoState extends State<EditTodo> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.backgroundButton),
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              context.router.pop(ToDo(
+                  id: widget.todo.id,
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  priority: priorityController.text));
+            });
+          },
           child: const Center(
             child: Text(
               'Save',
@@ -57,6 +80,7 @@ class _EditTodoState extends State<EditTodo> {
           children: [
             Container(
               child: DropdownMenu(
+                controller: priorityController,
                 width: 360,
                 initialSelection: Selected.hight,
                 label: const Text('Priority'),
@@ -72,6 +96,7 @@ class _EditTodoState extends State<EditTodo> {
               height: 20,
             ),
             TextField(
+              controller: titleController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Title',
@@ -84,6 +109,7 @@ class _EditTodoState extends State<EditTodo> {
               height: 20,
             ),
             TextField(
+              controller: descriptionController,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Description',
