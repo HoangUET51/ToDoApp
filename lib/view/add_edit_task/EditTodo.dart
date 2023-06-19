@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_list/pages/ToDoItem.dart';
+import 'package:to_do_list/view/ToDoItem.dart';
 
-import '../common/AppColor.dart';
-import '../common/AppStyle.dart';
-import '../common/Selected.dart';
+import '../../common/AppColor.dart';
+import '../../common/AppStyle.dart';
+import '../../common/Selected.dart';
 
 @RoutePage()
 class EditTodo extends StatefulWidget {

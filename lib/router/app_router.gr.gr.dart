@@ -10,20 +10,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
-import 'package:to_do_list/pages/AddTodo.dart' as _i1;
-import 'package:to_do_list/pages/EditTodo.dart' as _i2;
-import 'package:to_do_list/pages/ToDoItem.dart' as _i6;
-import 'package:to_do_list/pages/TodoList.dart' as _i3;
+import 'package:to_do_list/view/add_edit_task/add_edit_todo_page.dart' as _i1;
+import 'package:to_do_list/view/add_edit_task/EditTodo.dart' as _i2;
+import 'package:to_do_list/view/todo_list/todo_list_page.dart' as _i3;
+import 'package:to_do_list/view/ToDoItem.dart' as _i6;
 
 abstract class $AppRouter extends _i4.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
-    AddTodo.name: (routeData) {
+    AddEditTodo.name: (routeData) {
+      final args = routeData.argsAs<AddEditTodoArgs>();
       return _i4.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.AddTodo(),
+        child: _i1.AddEditTodo(
+          key: args.key,
+          isEditMode: args.isEditMode,
+        ),
       );
     },
     EditTodo.name: (routeData) {
@@ -48,17 +52,41 @@ abstract class $AppRouter extends _i4.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.AddTodo]
-class AddTodo extends _i4.PageRouteInfo<void> {
-  const AddTodo({List<_i4.PageRouteInfo>? children})
-      : super(
-          AddTodo.name,
+/// [_i1.AddEditTodo]
+class AddEditTodo extends _i4.PageRouteInfo<AddEditTodoArgs> {
+  AddEditTodo({
+    _i5.Key? key,
+    required dynamic isEditMode,
+    List<_i4.PageRouteInfo>? children,
+  }) : super(
+          AddEditTodo.name,
+          args: AddEditTodoArgs(
+            key: key,
+            isEditMode: isEditMode,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'AddTodo';
+  static const String name = 'AddEditTodo';
 
-  static const _i4.PageInfo<void> page = _i4.PageInfo<void>(name);
+  static const _i4.PageInfo<AddEditTodoArgs> page =
+      _i4.PageInfo<AddEditTodoArgs>(name);
+}
+
+class AddEditTodoArgs {
+  const AddEditTodoArgs({
+    this.key,
+    required this.isEditMode,
+  });
+
+  final _i5.Key? key;
+
+  final dynamic isEditMode;
+
+  @override
+  String toString() {
+    return 'AddEditTodoArgs{key: $key, isEditMode: $isEditMode}';
+  }
 }
 
 /// generated route for
