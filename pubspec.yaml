@@ -36,6 +36,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   auto_route: ^7.2.0
+  provider: ^6.0.5
+  #  nó dùng để thông báo sự thay đổi của state lên trên thằng đang lắng nghe nó (View, UI)
+  state_notifier: ^0.7.2+1
+  #  có tính năng thằng trên nhưng cho flutter
+  flutter_state_notifier: ^0.7.3
 
 dev_dependencies:
   flutter_test:
