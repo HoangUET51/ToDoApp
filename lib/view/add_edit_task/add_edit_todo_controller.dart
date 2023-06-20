@@ -36,7 +36,7 @@ class AddEditTaskController extends StateNotifier<AddEditTaskState> {
     return state.todoEntity;
   }
 
-  void setTodoEntity(TodoEntity todo) {
+  void setTodoEntity(TodoEntity? todo) {
     state = AddEditTaskState(todo);
   }
 }

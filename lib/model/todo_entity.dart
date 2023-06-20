@@ -19,7 +19,7 @@ class TodoEntity {
 
   final int? id;
 
-  final Priority priority;
-  final String title;
-  final String description;
+  late final Priority priority;
+  late final String title;
+  late final String description;
 }
