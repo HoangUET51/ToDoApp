@@ -19,28 +19,6 @@ class TodoList extends StatefulWidget {
 }
 
 class _TodoListState extends State<TodoList> {
-  final todosList = ToDo.todoList();
-
-  void addTodoList(ToDo todo) {
-    setState(() {
-      todosList.add(todo);
-    });
-  }
-
-  void deleteItem(int id) {
-    setState(() {
-      todosList.removeWhere((item) => item.id == id);
-    });
-  }
-
-  void handleOnchange(ToDo todo, ToDo newTodo) {
-    setState(() {
-      todo.priority = newTodo.priority;
-      todo.title = newTodo.title;
-      todo.description = newTodo.description;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,12 +76,14 @@ class _TodoListState extends State<TodoList> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 IconButton(
-                                  onPressed: () {
-                                    context.router
-                                        .push(AddEditTodo(isEditMode: true));
+                                  onPressed: () async {
                                     context
                                         .read<AddEditTaskController>()
                                         .setTodoEntity(todosListState[index]);
+                                    final result = await context.router
+                                        .push(AddEditTodo(isEditMode: true));
+                                    todosListState[index] = result as TodoEntity;
+                                    setState(() {});
                                   },
                                   icon: Icon(
                                     Icons.create_outlined,
