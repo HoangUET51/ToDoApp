@@ -13,7 +13,6 @@ class AddEditTodo extends StatelessWidget {
   const AddEditTodo({Key? key, required this.isEditMode}) : super(key: key);
 
   final isEditMode;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +31,10 @@ class AddEditTodo extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.backgroundButton),
           onPressed: () {
-            final todoEntity =
-                context.read<AddEditTaskController>().onAddBtnClicked();
-            context.router.pop(todoEntity);
+              final todoEntity =
+              context.read<AddEditTaskController>().onAddBtnClicked();
+              context.router.pop(todoEntity);
+              context.read<AddEditTaskController>().setTodoEntity(null);
           },
           child: Center(
               child: !isEditMode
