@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/common/AppColor.dart';
 import 'package:to_do_list/common/AppStyle.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:to_do_list/model/todo_entity.dart';
 import 'package:to_do_list/repository/todo_repository.dart';
-import 'package:to_do_list/view/ToDoItem.dart';
 import 'package:to_do_list/router/app_router.gr.gr.dart';
 import 'package:to_do_list/view/add_edit_task/add_edit_todo_controller.dart';
+import 'package:to_do_list/view/todo_list/todo_list_bloc.dart';
 import 'package:to_do_list/view/todo_list/todo_list_state.dart';
 
 @RoutePage()
@@ -27,9 +27,9 @@ class _TodoListState extends State<TodoList> {
         title: Text("Todo List App", style: AppStyle.titleAppBar),
         backgroundColor: AppColor.backgroundButton,
       ),
-      body: Selector<ToDoListState, List<TodoEntity>>(
-        selector: (context, state) => state.todoList,
-        builder: (_, todosListState, __) {
+      body: BlocSelector<TodoListBloc,ToDoListState,List<TodoEntity>>(
+        selector: (state) => state.todoList,
+        builder: (context,todosListState) {
           return ListView.builder(
               itemBuilder: (context, index) {
                 return Container(

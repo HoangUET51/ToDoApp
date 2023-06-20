@@ -9,6 +9,5 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: TodoList.page, path: "/", initial: true),
         AutoRoute(page: AddEditTodo.page, path: "/add"),
-        AutoRoute(page: EditTodo.page, path: "/edit")
       ];
 }
