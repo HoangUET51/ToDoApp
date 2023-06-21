@@ -1,9 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_list/model/todo_entity.dart';
-import 'package:to_do_list/view/add_edit_task/add_edit_todo_bloc.dart';
-import 'package:to_do_list/view/add_edit_task/add_edit_todo_state.dart';
 
 import '../../common/AppColor.dart';
 import '../../common/AppStyle.dart';
@@ -53,10 +50,7 @@ class AddEditTodo extends StatelessWidget {
                     )),
         ),
       ),
-      body: BlocConsumer<AddEditTodoBloc,AddEditTaskState>(
-        listener: (_, __) {},
-        builder: (context, state) {
-          return Container(
+      body: Container(
             margin: EdgeInsets.all(16),
             child: Column(
               children: [
@@ -112,9 +106,7 @@ class AddEditTodo extends StatelessWidget {
                 )
               ],
             ),
-          );
-        },
-      ),
-    );
+          )
+      );
   }
 }

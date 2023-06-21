@@ -12,10 +12,6 @@ class AddTodoEvent extends AddEditTodoEvent {
   AddTodoEvent({required this.todo});
 }
 
-class DeleteTodoEvent extends AddEditTodoEvent {
-  final TodoEntity todo;
-  DeleteTodoEvent({required this.todo});
-}
 
 
 
