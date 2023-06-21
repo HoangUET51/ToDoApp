@@ -1,17 +1,21 @@
-abstract class addEditTodoEvent{}
+import 'package:to_do_list/model/todo_entity.dart';
 
-class UpdateTitleEvent extends addEditTodoEvent {
-  String title;
-  UpdateTitleEvent({required this.title});
+abstract class AddEditTodoEvent{}
+
+class UpdateTodoEvent extends AddEditTodoEvent {
+  final TodoEntity todo;
+  UpdateTodoEvent({required this.todo});
 }
 
-class UpdateDescriptionEvent extends addEditTodoEvent {
-  String description;
-  UpdateDescriptionEvent({required this.description});
+class AddTodoEvent extends AddEditTodoEvent {
+  final TodoEntity todo;
+  AddTodoEvent({required this.todo});
 }
 
-class UpdatePriorityEvent extends addEditTodoEvent {
-  String priority;
-  UpdatePriorityEvent({required this.priority});
+class DeleteTodoEvent extends AddEditTodoEvent {
+  final TodoEntity todo;
+  DeleteTodoEvent({required this.todo});
 }
+
+
 

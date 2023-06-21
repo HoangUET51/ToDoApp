@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:to_do_list/model/todo_entity.dart';
 import 'package:to_do_list/view/add_edit_task/add_edit_todo_bloc.dart';
-import 'package:to_do_list/view/add_edit_task/add_edit_todo_controller.dart';
 import 'package:to_do_list/view/add_edit_task/add_edit_todo_state.dart';
 
 import '../../common/AppColor.dart';
@@ -33,10 +31,7 @@ class AddEditTodo extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.backgroundButton),
           onPressed: () {
-              final todoEntity =
-              context.read<AddEditTaskController>().onAddBtnClicked();
-              context.router.pop(todoEntity);
-              context.read<AddEditTaskController>().setTodoEntity(null);
+
           },
           child: Center(
               child: !isEditMode
@@ -67,16 +62,9 @@ class AddEditTodo extends StatelessWidget {
               children: [
                 Container(
                   child: DropdownButton<Priority>(
-                    value: state.todoEntity?.priority,
                     padding: EdgeInsets.all(10),
                     hint: Text("Priority"),
                     onChanged: (Priority? value) {
-                      if (value == null) {
-                        return;
-                      }
-                      context
-                          .read<AddEditTaskController>()
-                          .onPriorityChanged(value);
                     },
                     underline: Container(
                       height: 2,
@@ -100,9 +88,7 @@ class AddEditTodo extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
-                  initialValue: state.todoEntity?.title,
                   onChanged: (text) {
-                    context.read<AddEditTaskController>().onTitleUpdated(text);
                   },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -116,11 +102,7 @@ class AddEditTodo extends StatelessWidget {
                   height: 20,
                 ),
                 TextFormField(
-                  initialValue: state.todoEntity?.description,
                   onChanged: (text) {
-                    context
-                        .read<AddEditTaskController>()
-                        .onDescriptionUpdated(text);
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),

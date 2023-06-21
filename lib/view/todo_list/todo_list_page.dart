@@ -6,7 +6,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:to_do_list/model/todo_entity.dart';
 import 'package:to_do_list/repository/todo_repository.dart';
 import 'package:to_do_list/router/app_router.gr.gr.dart';
-import 'package:to_do_list/view/add_edit_task/add_edit_todo_controller.dart';
 import 'package:to_do_list/view/todo_list/todo_list_bloc.dart';
 import 'package:to_do_list/view/todo_list/todo_list_state.dart';
 
@@ -77,9 +76,6 @@ class _TodoListState extends State<TodoList> {
                               children: [
                                 IconButton(
                                   onPressed: () async {
-                                    context
-                                        .read<AddEditTaskController>()
-                                        .setTodoEntity(todosListState[index]);
                                     final result = await context.router
                                         .push(AddEditTodo(isEditMode: true));
                                     todosListState[index] = result as TodoEntity;
