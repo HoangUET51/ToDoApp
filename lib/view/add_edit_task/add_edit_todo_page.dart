@@ -11,16 +11,16 @@ import '../../common/AppStyle.dart';
 @RoutePage()
 class AddEditTodo extends StatelessWidget {
   const AddEditTodo({Key? key, required this.isEditMode}) : super(key: key);
-
   final isEditMode;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: isEditMode
-            ? Text('Edit Todo', style: AppStyle.titleAppBar)
-            : Text('Add Todo', style: AppStyle.titleAppBar),
+            ? const Text('Edit Todo', style: AppStyle.titleAppBar)
+            : const Text('Add Todo', style: AppStyle.titleAppBar),
         backgroundColor: AppColor.backgroundButton,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -31,14 +31,14 @@ class AddEditTodo extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColor.backgroundButton),
           onPressed: () {
-              final todoEntity =
-              context.read<AddEditTaskController>().onAddBtnClicked();
-              context.router.pop(todoEntity);
-              context.read<AddEditTaskController>().setTodoEntity(null);
+            final todoEntity =
+                context.read<AddEditTaskController>().onAddBtnClicked();
+            context.router.pop(todoEntity);
+            context.read<AddEditTaskController>().setTodoEntity(null);
           },
           child: Center(
               child: !isEditMode
-                  ? Text(
+                  ? const Text(
                       'Add',
                       style: TextStyle(
                         fontSize: 14,
@@ -46,7 +46,7 @@ class AddEditTodo extends StatelessWidget {
                         color: AppColor.titleBar,
                       ),
                     )
-                  : Text(
+                  : const Text(
                       "Edit",
                       style: TextStyle(
                         fontSize: 14,
@@ -59,19 +59,19 @@ class AddEditTodo extends StatelessWidget {
       body: Consumer<AddEditTaskState>(
         builder: (context, state, _) {
           return Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Container(
+                SizedBox(
+                  width: 200,
                   child: DropdownButton<Priority>(
                     value: state.todoEntity?.priority,
-                    padding: EdgeInsets.all(10),
-                    hint: Text("Priority"),
+                    padding: const EdgeInsets.all(10),
+                    hint: const Text("Priority"),
                     onChanged: (Priority? value) {
                       if (value == null) {
                         return;
                       }
-
                       context
                           .read<AddEditTaskController>()
                           .onPriorityChanged(value);
@@ -80,7 +80,7 @@ class AddEditTodo extends StatelessWidget {
                       height: 2,
                       color: Colors.deepPurpleAccent,
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: AppColor.titleItem),
@@ -93,7 +93,7 @@ class AddEditTodo extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: double.infinity,
                   height: 20,
                 ),
@@ -102,14 +102,14 @@ class AddEditTodo extends StatelessWidget {
                   onChanged: (text) {
                     context.read<AddEditTaskController>().onTitleUpdated(text);
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Title',
                     labelStyle:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: double.infinity,
                   height: 20,
                 ),
@@ -120,7 +120,7 @@ class AddEditTodo extends StatelessWidget {
                         .read<AddEditTaskController>()
                         .onDescriptionUpdated(text);
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Description',
                       labelStyle:

@@ -5,14 +5,13 @@ import 'package:to_do_list/common/AppStyle.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:to_do_list/model/todo_entity.dart';
 import 'package:to_do_list/repository/todo_repository.dart';
-import 'package:to_do_list/view/ToDoItem.dart';
 import 'package:to_do_list/router/app_router.gr.gr.dart';
 import 'package:to_do_list/view/add_edit_task/add_edit_todo_controller.dart';
 import 'package:to_do_list/view/todo_list/todo_list_state.dart';
 
 @RoutePage()
 class TodoList extends StatefulWidget {
-  TodoList({Key? key}) : super(key: key);
+  const TodoList({Key? key}) : super(key: key);
 
   @override
   State<TodoList> createState() => _TodoListState();
@@ -24,7 +23,7 @@ class _TodoListState extends State<TodoList> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Todo List App", style: AppStyle.titleAppBar),
+        title: const Text("Todo List App", style: AppStyle.titleAppBar),
         backgroundColor: AppColor.backgroundButton,
       ),
       body: Selector<ToDoListState, List<TodoEntity>>(
@@ -33,12 +32,12 @@ class _TodoListState extends State<TodoList> {
           return ListView.builder(
               itemBuilder: (context, index) {
                 return Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         left: 16, right: 16, top: 12, bottom: 12),
                     width: 358,
                     height: 104,
                     color: AppColor.backgroundItem,
-                    margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Row(
                       children: [
                         Expanded(
@@ -48,14 +47,14 @@ class _TodoListState extends State<TodoList> {
                               children: [
                                 Text(
                                   todosListState[index].priority.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: AppColor.subItem,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   todosListState[index].title.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: AppColor.titleItem,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -63,7 +62,7 @@ class _TodoListState extends State<TodoList> {
                                 Text(
                                   todosListState[index].description.toString(),
                                   overflow: TextOverflow.clip,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: AppColor.subItem,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w400),
@@ -82,10 +81,11 @@ class _TodoListState extends State<TodoList> {
                                         .setTodoEntity(todosListState[index]);
                                     final result = await context.router
                                         .push(AddEditTodo(isEditMode: true));
-                                    todosListState[index] = result as TodoEntity;
+                                    todosListState[index] =
+                                        result as TodoEntity;
                                     setState(() {});
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.create_outlined,
                                     color: AppColor.subItem,
                                     size: 20,
@@ -97,7 +97,7 @@ class _TodoListState extends State<TodoList> {
                                     todosListState
                                         .remove(todosListState[index]);
                                   },
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.delete,
                                     color: AppColor.subItem,
                                     size: 20,
@@ -119,7 +119,7 @@ class _TodoListState extends State<TodoList> {
           todoLists.add(result as TodoEntity);
           setState(() {});
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Color(0xff6750A4),
         ),
